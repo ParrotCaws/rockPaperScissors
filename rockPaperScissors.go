@@ -1,21 +1,21 @@
 package main
 
 import (
-	"math/rand"
 	"fmt"
+	"math/rand"
 )
+
 var choices = []string{"rock", "paper", "scissors"}
 var p = fmt.Println
+
 func randomAnswer() string {
 	return choices[rand.Intn(len(choices))]
 }
 
-
-
-func choiceCompare(choice1 string, choice2 string) {
-	switch{
+func choiceCompare(choice1 string, choice2 string) string {
+	switch {
 	case choice1 == "rock":
-		if choice2 == "rock"{
+		if choice2 == "rock" {
 			return "It was a tie!!"
 		} else if choice2 == "paper" {
 			return "Player 2 wins!"
@@ -40,9 +40,9 @@ func choiceCompare(choice1 string, choice2 string) {
 		}
 	default:
 		return "There was an error!"
+	}
 }
-
-func main() {c
+func main() {
 	var result = choiceCompare("rock", "scissors")
 	p(result)
 }
