@@ -86,4 +86,5 @@ func main() {
 		}
 	}
 	put("Thanks for playing Rock Paper Scissors, by ParrotCaws")
+	put("Fork me on github! github.com/ParrotCaws")
 }
