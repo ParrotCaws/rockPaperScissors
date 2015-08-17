@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"time"
 )
 
 var choices = []string{"rock", "paper", "scissors"}
@@ -42,7 +43,13 @@ func choiceCompare(choice1 string, choice2 string) string {
 		return "There was an error!"
 	}
 }
+
 func main() {
-	var result = choiceCompare("rock", "scissors")
+	rand.Seed(time.Now().UnixNano())
+	var choice1 = randomAnswer()
+	var choice2 = randomAnswer()
+	var result = choiceCompare(choice1, choice2)
 	p(result)
+	p("player 1's choice: ", choice1)
+	p("player 2's choice: ", choice2)
 }
