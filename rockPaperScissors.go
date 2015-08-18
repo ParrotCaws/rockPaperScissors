@@ -55,9 +55,10 @@ func main() {
 	for running == true {
 		put("Welcome to Rock Paper Scissors!")
 		put("Would you like to play with 0, 1, or 2 players?")
+
 		var players string
 		get("%s", &players)
-		if players != "0" {
+		if players == "1" || players == "2" {
 			put("What is your choice? (rock, paper, or scissors)")
 			get("%s", &player1choice)
 		} else {
@@ -71,6 +72,7 @@ func main() {
 			put("The player 2 computer is choosing...")
 			player2choice = randomAnswer()
 		}
+
 		put(choiceCompare(player1choice, player2choice))
 		put("Player 1 chose ", player1choice)
 		put("Player 2 chose ", player2choice)
