@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"strings"
 	"time"
 )
 
@@ -18,6 +19,7 @@ func randomAnswer() string {
 }
 
 func choiceCompare(choice1 string, choice2 string) string {
+
 	switch {
 	case choice1 == "rock":
 		if choice2 == "rock" {
@@ -47,13 +49,24 @@ func choiceCompare(choice1 string, choice2 string) string {
 		return "There was an error!"
 	}
 }
+func playAgain() {
+	put("Would you like to play again? (y/n)")
 
-func main() {
-	rand.Seed(time.Now().UnixNano())
-	running = true
+	var again string
+	get("%s", &again)
+	again = strings.ToLower(again)
 
+	if again == "y" {
+		running = true
+	} else if again == "n" {
+		running = false
+	} else {
+		put("That's an invalid response!")
+		playAgain()
+	}
+}
+func game() {
 	for running == true {
-		put("Welcome to Rock Paper Scissors!")
 		put("Would you like to play with 0, 1, or 2 players?")
 
 		var players string
@@ -72,21 +85,21 @@ func main() {
 			put("The player 2 computer is choosing...")
 			player2choice = randomAnswer()
 		}
+		player1choice = strings.ToLower(player1choice)
+		player2choice = strings.ToLower(player2choice)
 
 		put(choiceCompare(player1choice, player2choice))
 		put("Player 1 chose ", player1choice)
 		put("Player 2 chose ", player2choice)
 
-		put("Would you like to play again? (y/n)")
-		var playAgain string
-		get("%s", &playAgain)
-
-		if playAgain == "y" {
-			running = true
-		} else {
-			running = false
-		}
+		playAgain()
 	}
+}
+func main() {
+	rand.Seed(time.Now().UnixNano())
+	running = true
+	put("Welcome to Rock Paper Scissors!")
+	game()
 	put("Thanks for playing Rock Paper Scissors, by ParrotCaws")
 	put("Fork me on github! github.com/ParrotCaws")
 }
