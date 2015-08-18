@@ -95,6 +95,7 @@ func game() {
 		playAgain()
 	}
 }
+
 func main() {
 	rand.Seed(time.Now().UnixNano())
 	running = true
