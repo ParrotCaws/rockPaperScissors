@@ -9,8 +9,6 @@ import (
 
 var (
 	choices                      = []string{"rock", "paper", "scissors"}
-	put                          = fmt.Println
-	get                          = fmt.Scanf
 	running                      bool
 	player1choice, player2choice string
 )
@@ -43,10 +41,10 @@ func choiceCompare(choice1, choice2 string) string {
 	}
 }
 func playAgain() bool {
-	put("Would you like to play again? (y/n)")
+	fmt.Println("Would you like to play again? (y/n)")
 
 	var again string
-	get("%s", &again)
+	fmt.Scanf("%s", &again)
 	again = strings.ToLower(again)
 
 	if again == "y" {
@@ -54,36 +52,37 @@ func playAgain() bool {
 	} else if again == "n" {
 		return false
 	} else {
-		put("That's an invalid response!")
+		fmt.Println("That's an invalid response!")
 		return playAgain()
 	}
 }
 func game() {
+
 	for running == true {
-		put("Would you like to play with 0, 1, or 2 players?")
+		fmt.Println("Would you like to play with 0, 1, or 2 players?")
 
 		var players string
-		get("%s", &players)
+		fmt.Scanf("%s", &players)
 		if players == "1" || players == "2" {
-			put("What is your choice? (rock, paper, or scissors)")
-			get("%s", &player1choice)
+			fmt.Println("What is your choice? (rock, paper, or scissors)")
+			fmt.Scanf("%s", &player1choice)
 		} else {
-			put("The player 1 computer is choosing...")
+			fmt.Println("The player 1 computer is choosing...")
 			player1choice = randomAnswer()
 		}
 		if players == "2" {
-			put("what is your opponents choice?")
-			get("%s", &player2choice)
+			fmt.Println("what is your opponents choice?")
+			fmt.Scanf("%s", &player2choice)
 		} else {
-			put("The player 2 computer is choosing...")
+			fmt.Println("The player 2 computer is choosing...")
 			player2choice = randomAnswer()
 		}
 		player1choice = strings.ToLower(player1choice)
 		player2choice = strings.ToLower(player2choice)
 
-		put(choiceCompare(player1choice, player2choice))
-		put("Player 1 chose ", player1choice)
-		put("Player 2 chose ", player2choice)
+		fmt.Println(choiceCompare(player1choice, player2choice))
+		fmt.Println("Player 1 chose ", player1choice)
+		fmt.Println("Player 2 chose ", player2choice)
 
 		running = playAgain()
 	}
@@ -92,8 +91,8 @@ func game() {
 func main() {
 	rand.Seed(time.Now().UnixNano())
 	running = true
-	put("Welcome to Rock Paper Scissors!")
+	fmt.Println("Welcome to Rock Paper Scissors!")
 	game()
-	put("Thanks for playing Rock Paper Scissors, by ParrotCaws")
-	put("Fork me on github! github.com/ParrotCaws")
+	fmt.Println("Thanks for playing Rock Paper Scissors, by ParrotCaws")
+	fmt.Println("Fork me on github! github.com/ParrotCaws")
 }
