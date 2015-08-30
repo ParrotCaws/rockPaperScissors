@@ -7,49 +7,42 @@ import (
 	"time"
 )
 
-var choices = []string{"rock", "paper", "scissors"}
-var put = fmt.Println
-var get = fmt.Scanf
-var running bool
-var player1choice string
-var player2choice string
+var (
+	choices                      = []string{"rock", "paper", "scissors"}
+	put                          = fmt.Println
+	get                          = fmt.Scanf
+	running                      bool
+	player1choice, player2choice string
+)
 
 func randomAnswer() string {
 	return choices[rand.Intn(len(choices))]
 }
 
-func choiceCompare(choice1 string, choice2 string) string {
+func isValid(choice string) bool {
+	for _, c := range choices {
+		if choice == c {
+			return true
+		}
+	}
+	return false
+}
 
+func choiceCompare(choice1, choice2 string) string {
 	switch {
-	case choice1 == "rock":
-		if choice2 == "rock" {
-			return "It was a tie!!"
-		} else if choice2 == "paper" {
-			return "Player 2 wins!"
-		} else {
-			return "Player 1 wins!"
-		}
-	case choice1 == "paper":
-		if choice2 == "rock" {
-			return "Player 1 wins!"
-		} else if choice2 == "paper" {
-			return "It was a tie!"
-		} else {
-			return "Player 2 wins!"
-		}
-	case choice1 == "scissors":
-		if choice2 == "rock" {
-			return "Player 2 wins!"
-		} else if choice2 == "paper" {
-			return "Player 1 wins!"
-		} else {
-			return "It was a tie!"
-		}
+	case !isValid(choice1):
+		return "Player one's choice was not valid!"
+	case !isValid(choice2):
+		return "Player two's choice was not valid!"
+	case choice1 == choice2:
+		return "There was a tie!"
+	case (choice1 == "rock" && choice2 == "scissors") || (choice1 == "paper" && choice2 == "rock") || (choice1 == "scissors" && choice2 == "paper"):
+		return "Player one wins!"
 	default:
-		return "There was an error!"
+		return "Player two wins!"
 	}
 }
-func playAgain() {
+func playAgain() bool {
 	put("Would you like to play again? (y/n)")
 
 	var again string
@@ -57,12 +50,12 @@ func playAgain() {
 	again = strings.ToLower(again)
 
 	if again == "y" {
-		running = true
+		return true
 	} else if again == "n" {
-		running = false
+		return false
 	} else {
 		put("That's an invalid response!")
-		playAgain()
+		return playAgain()
 	}
 }
 func game() {
@@ -92,7 +85,7 @@ func game() {
 		put("Player 1 chose ", player1choice)
 		put("Player 2 chose ", player2choice)
 
-		playAgain()
+		running = playAgain()
 	}
 }
 
